@@ -47,6 +47,8 @@ _createRandomObject =
 	_pos = getMarkerPos (_x select 0);
 	_tradius = _x select 1;
 	_townname = _x select 2;
+	_obj_sealand = _townname == "Sealand";
+	if ( _obj_sealand ) exitWith {};
 	_objammount = ceil (_tradius / _sradius);  // spawns an object for every "_sradius" meters the townmarker has, this might need tweaking!
 	_angleIncr = 360 / _objammount;
 	_langle = random _angleIncr;
@@ -74,4 +76,4 @@ _createRandomObject =
 	waitUntil {scriptDone _x};
 } forEach _spawnedObjects;
 
-diag_log format["WASTELAND - Object spawning completed - %1 Objects Spawned on Altis",_counter];
+diag_log format ["WASTELAND - Object spawning completed - %1 objects spawned", _counter];

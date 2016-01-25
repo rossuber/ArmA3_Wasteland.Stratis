@@ -99,7 +99,7 @@ diag_log format ["Player starting with $%1", (player getVariable ["cmoney", 0]) 
 [] execVM "territory\client\hideDisabledTerritories.sqf";
 
 // Territory system enabled?
-if (count (["config_territory_markers", []] call getPublicVar) > 0) then
+if (count (config_territory_markers) > 0) then
 {
 	A3W_fnc_territoryActivityHandler = "territory\client\territoryActivityHandler.sqf" call mf_compile;
 	[] execVM "territory\client\setupCaptureTriggers.sqf";

@@ -49,9 +49,7 @@ lootWeapon_list =
 			"Rangefinder",
 			"SMG_01_F",                         // Vermin .45 ACP
 			"SMG_02_F",                         // Sting 9mm
-			"srifle_EBR_F",
-			"srifle_GM6_F",
-			"srifle_LRR_F"
+			"srifle_EBR_F"
 		]
 	],
 	[ // INDUSTRIAL
@@ -76,8 +74,7 @@ lootWeapon_list =
 			"arifle_MXM_F",
 			"arifle_MX_GL_F",
 			"Rangefinder",
-			"srifle_GM6_F",
-			"srifle_LRR_F"
+			"srifle_GM6_F"
 		]
 	]
 ];
@@ -217,7 +214,8 @@ lootItem_list =
 			"optic_ACO_grn",
 			"optic_aco_smg",
 			"optic_Holosight",
-			"optic_Holosight_smg"
+			"optic_Holosight_smg",
+			"V_RebreatherB"
 		]
 	],
 	[ // MILITARY
@@ -251,7 +249,8 @@ lootItem_list =
 			"H_HelmetO_ocamo",
 			"V_PlateCarrier1_rgr",
 			"V_PlateCarrierIA1_dgtl",
-			"V_HarnessO_brn"
+			"V_HarnessO_brn",
+			"V_RebreatherB"
 		]
 	],
 	[ // INDUSTRIAL
@@ -261,7 +260,9 @@ lootItem_list =
 			"FirstAidKit",
 			"Medikit",
 			"ToolKit",
-			"ToolKit"
+			"ToolKit",
+			"V_RebreatherB",
+			"V_RebreatherB"
 		]
 	],
 	[ // RESEARCH
@@ -278,6 +279,7 @@ lootItem_list =
 			"optic_Nightstalker",
 			"optic_NVS",
 			"optic_SOS",
+			"V_RebreatherB",
 			"V_RebreatherB"
 		]
 	]

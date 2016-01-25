@@ -28,7 +28,7 @@ Buildingstoloot_list =
 	//["Land_ReservoirTank_Airport_F", 0],  //no positions
 	//["Land_ReservoirTower_F", 2],         //no positions
 	//["Land_Shed_Big_F", 0],               //no positions
-	//["Land_Shed_Small_F", 0],             //no positions
+	["Land_Shed_Small_F", 0],             //no positions
 	//["Land_TBox_F", 0],                   //no positions
 	//["Land_TTowerBig_1_F", 2],            //no positions
 	//["Land_TTowerBig_2_F", 2],            //no positions
@@ -139,5 +139,25 @@ Buildingstoloot_list =
 	["Land_u_Shed_Ind_F", 2],
 	["Land_u_Shop_01_V1_F", 0],
 	["Land_u_Shop_02_V1_F", 0],
-	["Land_WIP_F", 2]
+	["Land_WIP_F", 2],
+	//["Land_FieldToilet_F", 2],
+	["Land_Medevac_house_V1_ruins_F", 3],
+	["Land_Stadium_p9_F", 0],
+	["Land_Kiosk_blueking_F", 0],
+	//["Land_ToiletBox_F", 0],
+	["Land_Medevac_HQ_V1_F", 3],
+	["Land_Medevac_house_V1_F", 3],
+	["Land_Kiosk_redburger_F", 0],
+	//["Land_Dome_Big_F", 3],
+	["Land_Cargo_Tower_V1_No1_F", 1],
+	["Land_Cargo_Tower_V1_No2_F", 1],
+	["Land_Cargo_Tower_V1_No3_F", 1],
+	["Land_Cargo_Tower_V1_No4_F", 1],
+	["Land_Cargo_Tower_V1_No5_F", 1],
+	["Land_Cargo_Tower_V1_No6_F", 1],
+	["Land_ReservoirTower_F", 2],
+	["Land_IndPipe2_big_ground2_F", 2],
+	["Land_IndPipe2_big_18_F", 2],
+	["Land_IndPipe2_bigL_R_F", 2],
+	["Land_Pier_addon", 0]
 ];

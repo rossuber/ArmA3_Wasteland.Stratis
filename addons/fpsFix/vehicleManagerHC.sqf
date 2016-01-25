@@ -20,7 +20,7 @@ scriptName "vehicleManagerHC";
 A3W_vehicleManagerEventCode =
 {
 	_vehicle = _this select 0;
-	if (!simulationEnabled _vehicle) then { [_vehicle, true] call fn_enableSimulationGlobal };
+	if (!simulationEnabled _vehicle ) then { [_vehicle, true] call fn_enableSimulationGlobal };
 	_vehicle setVariable ["fpsFix_simulationCooloff", diag_tickTime + 20];
 } call mf_compile;
 
@@ -35,8 +35,8 @@ A3W_vehicleManagerHC =
 	if (_initTime == 0) then
 	{
 		_initTime = diag_tickTime;
-		_vehicle setVariable ["fpsFix_initTime", _initTime];
-		_vehicle setVariable ["fpsFix_skip", !simulationEnabled _vehicle]; // don't touch vehicle if simulation is already disabled
+		_vehicle setVariable ["fpsFix_initTime", _initTime, true];
+		_vehicle setVariable ["fpsFix_skip", !simulationEnabled _vehicle, true]; // don't touch vehicle if simulation is already disabled
 	};
 
 	if (diag_tickTime - _initTime < MIN_INIT_TIME || _vehicle getVariable ["fpsFix_skip", false]) exitWith {};
@@ -71,7 +71,7 @@ A3W_vehicleManagerHC =
 		};
 	};
 
-	if (_tryEnable && !simulationEnabled _vehicle) then
+	if (_tryEnable && !simulationEnabled _vehicle ) then
 	{
 		[_vehicle, true] call fn_enableSimulationServer;
 	};
@@ -83,10 +83,10 @@ A3W_vehicleManagerHC =
 			_vehicle addEventHandler ["GetIn", A3W_vehicleManagerEventCode];
 		};
 
-		if (_vehicle isKindOf "Thing") then
+/* 		if (_vehicle isKindOf "Thing") then
 		{
 			_vehicle addEventHandler ["EpeContactStart", A3W_vehicleManagerEventCode];
-		};
+		}; */
 
 		_vehicle addEventHandler ["Explosion", A3W_vehicleManagerEventCode];
 		_vehicle addEventHandler ["Killed", A3W_vehicleManagerEventCode];
@@ -108,7 +108,7 @@ while {true} do
 {
 	_startTime = diag_tickTime;
 	_entities = entities "All";
-	A3W_allPlayers = call fn_allPlayers;
+	A3W_allPlayers = allPlayers;
 
 	_loopQty = [A3W_vehicleManagerHC, _entities, MAIN_LOOP_INTERVAL, _oldCount, _totalTime, _loopQty, true] call fn_loopSpread;
 

@@ -35,7 +35,7 @@ _displayTerritoryActivity =
 	if (_territoryName != _lastTerritoryName) then
 	{
 		// Look up the descriptive name of this territory
-		_configEntry = [["config_territory_markers", []] call getPublicVar, { _x select 0 == _territoryName }] call BIS_fnc_conditionalSelect;
+		_configEntry = [config_territory_markers, { _x select 0 == _territoryName }] call BIS_fnc_conditionalSelect;
 		_descriptiveName = (_configEntry select 0) select 1;
 		_lastTerritoryName = _territoryName;
 		_lastTerritoryDescriptiveName = _descriptiveName;

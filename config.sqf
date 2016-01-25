@@ -12,6 +12,7 @@
 // Towns and cities array
 // Marker Name, Diameter, City Name
 cityList = compileFinal preprocessFileLineNumbers "mapConfig\towns.sqf";
+landCityList = call cityList;
 
 config_items_jerrycans_max = compileFinal "1";
 config_items_syphon_hose_max = compileFinal "1";
@@ -32,5 +33,6 @@ config_refuel_amounts = compileFinal str
 
 // How much do players spawn with?
 // config_initial_spawn_money = compileFinal "100";
-
-config_territory_markers = compileFinal preprocessFileLineNumbers "mapConfig\territories.sqf";
+if ( isNil "config_territory_markers" ) then {
+	config_territory_markers = call compile preprocessFileLineNumbers "mapConfig\territories.sqf";
+};

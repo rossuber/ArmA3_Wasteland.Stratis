@@ -5,5 +5,6 @@
 //	@file Author: AgentRev
 
 [
-	"CoastalConvoy_1"
+	"CoastalConvoy_1",
+	"CoastalConvoy_2"
 ]

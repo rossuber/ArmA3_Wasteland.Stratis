@@ -28,7 +28,7 @@
 			<English>You are restricted to the Independent side, due to having done 2 or more teamkills during this server session.</English>
 		</Key>
 		<Key ID="STR_WL_Loading_Teamswitched">
-			<English>You have played as %1 for too long and cannot switch to the other team. You can still play as Independent. (or if online, ask an admin to unlock you)</English>
+			<English>You have played as %1 for too long and cannot switch to the other team.</English>
 		</Key>
 	</Package>
 	<Package name="WelcomeMessage">
@@ -90,6 +90,18 @@
 		<Key ID="STR_WL_ShopDescriptions_Warchest">
 			<English>A safe to store your team's money.</English>
 		</Key>
+		<Key ID="STR_WL_ShopDescriptions_LSD">
+            <English>A synthetic crystalline compound, lysergic acid diethylamide, that is a potent hallucinogenic drug.</English>
+        </Key>
+        <Key ID="STR_WL_ShopDescriptions_Marijuana">
+            <English>Often consumed for its psychoactive and physiological effects, which can include heightened mood or euphoria, relaxation, and an increase in appetite.</English>
+        </Key>
+        <Key ID="STR_WL_ShopDescriptions_Cocaine">
+            <English>An addictive drug derived from coca or prepared synthetically, used as an illegal stimulant and sometimes medicinally as a local anesthetic.</English>
+        </Key>
+        <Key ID="STR_WL_ShopDescriptions_Heroin">
+            <English>A highly addictive analgesic drug derived from morphine, often used illicitly as a narcotic producing euphoria.</English>
+        </Key>
 	</Package>
 	<Package name="Dialogs">
 		<Key ID="STR_WL_dialog_TeamkillText">

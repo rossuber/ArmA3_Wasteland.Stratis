@@ -38,6 +38,58 @@ _ExtendPosition =
 // find available buildings
 _buildingsArray = nearestObjects [_missionPos, ["house"], _buildingRadius];
 _buildingPosArray = [];
+
+_dis_chk_buildings = _missionPos distance [ 7000, 7000, 0 ];
+_close_sea_buildings = _dis_chk_buildings < 600;
+
+if ( _close_sea_buildings ) then {
+	_buildingsArray = nearestObjects [_missionPos, [
+		"Land_FieldToilet_F",
+		"Land_Medevac_house_V1_ruins_F",
+		"Land_Stadium_p9_F",
+		"Land_Kiosk_blueking_F",
+		"Land_ToiletBox_F",
+		"Land_Medevac_HQ_V1_F",
+		"Land_Medevac_house_V1_F",
+		"Land_Kiosk_redburger_F",
+		"Land_Dome_Big_F",
+		"Land_Cargo_Tower_V1_No1_F",
+		"Land_Cargo_Tower_V1_No2_F",
+		"Land_Cargo_Tower_V1_No3_F",
+		"Land_Cargo_Tower_V1_No4_F",
+		"Land_Cargo_Tower_V1_No5_F",
+		"Land_Cargo_Tower_V1_No6_F",
+		"Land_ReservoirTower_F",
+		"Land_IndPipe2_big_ground2_F",
+		"Land_IndPipe2_big_18_F",
+		"Land_IndPipe2_bigL_R_F",
+		"Land_Pier_addon",
+		"Land_Research_house_V1_F",
+		"Land_Research_HQ_F",
+		"Land_Slum_House01_F",
+		"Land_Slum_House02_F",
+		"Land_Slum_House03_F",
+		"Land_LightHouse_F",
+		"Land_Lighthouse_small_F",
+		"Land_Airport_left_F",
+		"Land_Airport_right_F",
+		"Land_Airport_Tower_dam_F",
+		"Land_Airport_Tower_F",
+		"Land_cargo_house_slum_F",
+		"Land_Cargo_House_V1_F",
+		"Land_Cargo_House_V2_F",
+		"Land_Cargo_House_V3_F",
+		"Land_Cargo_HQ_V1_F",
+		"Land_Cargo_HQ_V2_F",
+		"Land_Cargo_HQ_V3_F",
+		"Land_Cargo_Patrol_V1_F",
+		"Land_Cargo_Patrol_V2_F",
+		"Land_Cargo_Patrol_V3_F",
+		"Land_Cargo_Tower_V1_F",
+		"Land_Cargo_Tower_V3_F"
+	], _buildingRadius];
+};
+
 {
 	_buildingPositions = 0;
 	for "_i" from 0 to 100 do

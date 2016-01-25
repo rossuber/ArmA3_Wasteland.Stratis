@@ -70,7 +70,7 @@ A3W_mapDraw_thread = [] spawn
 
 			if (count _deadATMs > 0) then
 			{
-				_deadATMs spawn { A3W_atmArray = A3W_atmArray - _this };
+				//_deadATMs spawn { A3W_atmArray = A3W_atmArray - _this };
 			};
 		};
 

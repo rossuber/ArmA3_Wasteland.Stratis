@@ -4,14 +4,14 @@
 //	@file Name: processTransaction.sqf
 //	@file Author: AgentRev
 
-_type = [_this, 0, "", [""]] call BIS_fnc_param;
+_type = param [0, "", [""]];
 
 switch (toLower _type) do
 {
 	case "warchest":
 	{
-		_player = [_this, 1, objNull, [objNull]] call BIS_fnc_param;
-		_amount = [_this, 2, 0, [0]] call BIS_fnc_param;
+		_player = param [1, objNull, [objNull]];
+		_amount = param [2, 0, [0]];
 
 		_side = side group _player;
 		_result = 0;
@@ -57,9 +57,9 @@ switch (toLower _type) do
 
 	case "cratemoney":
 	{
-		_player = [_this, 1, objNull, [objNull]] call BIS_fnc_param;
-		_crate = [_this, 2, objNull, ["",objNull]] call BIS_fnc_param;
-		_amount = [_this, 3, 0, [0]] call BIS_fnc_param;
+		_player = param [1, objNull, [objNull]];
+		_crate = param [2, objNull, ["",objNull]];
+		_amount = param [3, 0, [0]];
 
 		if (typeName _crate == "STRING") then { _crate = objectFromNetId _crate };
 
@@ -96,8 +96,8 @@ switch (toLower _type) do
 
 	case "atm":
 	{
-		_player = [_this, 1, objNull, [objNull]] call BIS_fnc_param;
-		_amount = [_this, 2, 0, [0]] call BIS_fnc_param;
+		_player = param [1, objNull, [objNull]];
+		_amount = param [2, 0, [0]];
 
 		_result = 0;
 
@@ -113,7 +113,19 @@ switch (toLower _type) do
 
 			_newBalance = _balance + _amount;
 
-			if (_newBalance > ["A3W_atmMaxBalance", 1000000] call getPublicVar) exitWith {}; // account would exceed or has reached max balance
+			//Donator Bank Cap Adjustment
+			_maxBalance = ["A3W_atmMaxBalance", 1000000] call getPublicVar;
+
+			_donatorLevel = _player getVariable ["donatorLevel", 0];
+			_maxBalance = switch (_donatorLevel) do
+				{
+					case 1: {_maxBalance + 0;};
+					case 2: {_maxBalance + 1000000;};
+					case 3: {_maxBalance + 1000000;};
+					case 4: {_maxBalance + 2000000;};
+					default {_maxBalance};
+				};
+			if (_newBalance > _maxBalance) exitWith {}; // account would exceed or has reached max balance
 
 			_player setVariable ["bmoney", _newBalance, true];
 
@@ -138,11 +150,11 @@ switch (toLower _type) do
 
 	case "atmtranfer":
 	{
-		_sender = [_this, 1, objNull, [objNull]] call BIS_fnc_param;
-		_recipient = [_this, 2, objNull, [objNull]] call BIS_fnc_param;
-		_amount = [_this, 3, 0, [0]] call BIS_fnc_param;
-		_feeAmount = [_this, 4, 0, [0]] call BIS_fnc_param;
-		_transferKey = [_this, 5, "", [""]] call BIS_fnc_param;
+		_sender = param [1, objNull, [objNull]];
+		_recipient = param [2, objNull, [objNull]];
+		_amount = param [3, 0, [0]];
+		_feeAmount = param [4, 0, [0]];
+		_transferKey = param [5, "", [""]];
 
 		_result = 0;
 		_total = _amount + _feeAmount;

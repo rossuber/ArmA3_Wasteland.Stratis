@@ -62,7 +62,11 @@ _startTime = diag_tickTime;
 		_pos = getMarkerPos (_town select 0);
 		_tradius = _town select 1;
 		_townname = _town select 2;
-		_vehammount = round (_tradius * _carPerMeters); // Calculates the quantity of vehicle based on the town's radius
+		
+		_veh_sealand = _townname == "Sealand";
+		if ( _veh_sealand ) exitWith {};
+		
+		_vehammount = 1 max round (_tradius * _carPerMeters); // Calculates the quantity of vehicle based on the town's radius
 		_angleIncr = 360 / _vehammount;
 		_langle = random _angleIncr;
 		//_minrad = 15;

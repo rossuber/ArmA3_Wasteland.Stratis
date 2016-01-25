@@ -14,7 +14,7 @@ private ["_controllerSuffix", "_missionTimeout", "_availableLocations", "_missio
 // Variables that can be defined in the mission script :
 private ["_missionType", "_locationsArray", "_aiGroup", "_missionPos", "_missionPicture", "_missionHintText", "_successHintMessage", "_failedHintMessage"];
 
-_controllerSuffix = [_this, 0, "", [""]] call BIS_fnc_param;
+_controllerSuffix = param [0, "", [""]];
 _aiGroup = grpNull;
 
 if (!isNil "_setupVars") then { call _setupVars };
@@ -27,7 +27,7 @@ if (!isNil "_locationsArray") then
 {
 	while {true} do
 	{
-		_availableLocations = [_locationsArray, { !(_x select 1) && diag_tickTime - ([_x, 2, -1e11] call BIS_fnc_param) >= MISSION_LOCATION_COOLDOWN}] call BIS_fnc_conditionalSelect;
+		_availableLocations = [_locationsArray, { !(_x select 1) && diag_tickTime - (_x param [2, -1e11]) >= MISSION_LOCATION_COOLDOWN}] call BIS_fnc_conditionalSelect;
 
 		if (count _availableLocations > 0) exitWith {};
 		uiSleep 60;
@@ -57,6 +57,8 @@ call missionHint;
 
 diag_log format ["WASTELAND SERVER - %1 Mission%2 waiting to be finished: %3", MISSION_PROC_TYPE_NAME, _controllerSuffix, _missionType];
 
+_is_sea_proc = _missionType == "Sealand Invasion";
+
 _failed = false;
 _complete = false;
 _startTime = diag_tickTime;
@@ -73,13 +75,31 @@ waitUntil
 	// Force immediate leader change if current one is dead
 	if (!alive _leaderTemp) then
 	{
-		{
-			if (alive _x) exitWith
-			{
-				_aiGroup selectLeader _x;
-				_leaderTemp = _x;
+		if ( _is_sea_proc ) then {
+			_nearest_units = nearestObjects [ position _leaderTemp, [ "Man" ], 100 ];
+			_num = civilian countSide _nearest_units;
+			
+			if ( _num > 0 ) then {
+				_randy = _nearest_units select 0;
+				waitUntil {
+					sleep 0.1;
+					_randy = _nearest_units call BIS_fnc_selectRandom;
+					_side_chk = side _randy == civilian;
+					_side_chk
+				};
+				[ _randy ] join _aiGroup;
+				_aiGroup selectLeader _randy;
+				_leaderTemp = _randy;
 			};
-		} forEach units _aiGroup;
+		} else {
+			{
+				if (alive _x) exitWith
+				{
+					_aiGroup selectLeader _x;
+					_leaderTemp = _x;
+				};
+			} forEach units _aiGroup;
+		};
 	};
 
 	_newAiCount = count units _aiGroup;

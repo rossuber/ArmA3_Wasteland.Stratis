@@ -12,22 +12,21 @@ class playerSettings {
 
 	class controlsBackground {
 
-		class MainBG : w_RscPicture {
+		class MainBG : IGUIBack {
 			idc = -1;
 			colorText[] = {1, 1, 1, 1};
-			colorBackground[] = {0,0,0,0};
-			text = "#(argb,8,8,3)color(0,0,0,0.6)";
+			colorBackground[] = {0,0,0,0.6};
+
 			moving = true;
 			x = 0.0; y = 0.1;
 			w = .745; h = 0.65;
 		};
 
-		class TopBar: w_RscPicture
+		class TopBar: IGUIBack
 		{
 			idc = -1;
 			colorText[] = {1, 1, 1, 1};
-			colorBackground[] = {0,0,0,0};
-			text = "#(argb,8,8,3)color(0.25,0.51,0.96,0.8)";
+			colorBackground[] = {A3W_UICOLOR_R, A3W_UICOLOR_G, A3W_UICOLOR_B, 0.8};
 
 			x = 0;
 			y = 0.1;
@@ -189,6 +188,14 @@ class playerSettings {
 			onButtonClick = "setViewDistance 5000;";
 			x = 0.02; y = 0.60;
 			w = 0.125; h = 0.033 * safezoneH;
+		};
+		
+			class a3gInfoButton : w_RscButton {
+			idc = -1;
+			text = "Thanks for Playing!";
+			onButtonClick = "hintSilent ':^)';";
+			x = 0.228; y = 0.254;
+			w = 0.225; h = 0.033 * safezoneH;
 		};
 	};
 };

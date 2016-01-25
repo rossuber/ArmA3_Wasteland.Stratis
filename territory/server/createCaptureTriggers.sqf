@@ -11,12 +11,14 @@
 
 if (!isServer) exitWith {};
 
+waitUntil { sleep 1; sealand_complete };
+
 {
 	_marker = _x;
 
 	if (["TERRITORY_", _marker] call fn_startsWith) then
 	{
-		if ({_x select 0 == _marker} count (["config_territory_markers", []] call getPublicVar) > 0) then
+		if ({_x select 0 == _marker} count (config_territory_markers) > 0) then
 		{
 			diag_log format ["Creating territory capture trigger for '%1'", _marker];
 			_trig = createTrigger ["EmptyDetector", markerPos _marker];

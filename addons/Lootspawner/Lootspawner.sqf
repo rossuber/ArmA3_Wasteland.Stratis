@@ -30,10 +30,10 @@ _tmpTstPlace = [14730, 16276, 0];   //Coord's, in [x,y,z] of a preferably flat a
 //-------------- A VALUE OF '0' RESULTS IN NO LOOT FOR THIS CLASS AND TYPE ----------------
 spawnClassChance_list =
 [
-	[1.0, 1.5, 2.0, 0.25, 5.0], // civil
-	[1.5, 2.0, 1.5, 0.5, 1.5],  // military
-	[0.5, 1.0, 3.0, 0.25, 5.0], // industrial
-	[1.0, 1.5, 3.0, 0, 0]       // research
+	[0.5, 2.0, 2.5, 0.5, 4.0], // civil
+	[3.0, 2.5, 1.5, 0.25, 1.5],  // military
+	[0.5, 1.0, 2.0, 0.5, 3.0], // industrial
+	[1.5, 1.5, 2.0, 0.1, 0.1]       // research
 ];
 
 if (["A3W_buildingLootWeapons", 1] call getPublicVar == 0) then

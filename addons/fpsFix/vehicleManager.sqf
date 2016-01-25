@@ -13,7 +13,7 @@ if (isServer) exitWith {};
 #define MAIN_LOOP_INTERVAL 5
 #define START_LOOP_QTY_PER_FRAME 5
 #define MAX_LOOP_QTY_PER_FRAME 10
-
+#define MIN_INIT_TIME 60
 #define MOVEMENT_DISTANCE_RESCAN 100
 #define MAX_IDLE_TIME (5*60)
 #define DISABLE_DISTANCE_R3F (MOVEMENT_DISTANCE_RESCAN + 100)
@@ -28,7 +28,8 @@ private ["_eventCode", "_vehicleManager", "_lastPos", "_R3F_attachPoint"];
 A3W_vehicleManagerEventCode =
 {
 	_vehicle = _this select 0;
-	if (!simulationEnabled _vehicle) then { _vehicle enableSimulation true };
+	if (diag_tickTime - _initTime < MIN_INIT_TIME || _vehicle getVariable ["fpsFix_skip", false]) exitWith {};
+	if ( !simulationEnabled _vehicle ) then { _vehicle enableSimulation true };
 	_vehicle setVariable ["fpsFix_simulationCooloff", diag_tickTime + 20];
 } call mf_compile;
 
@@ -63,8 +64,8 @@ A3W_vehicleManager =
 				_tryEnable = false;
 			};
 		};
-
-		if (_tryEnable && !simulationEnabled _vehicle) then
+		if (diag_tickTime - _initTime < MIN_INIT_TIME || _vehicle getVariable ["fpsFix_skip", false]) exitWith {};
+		if (_tryEnable && !simulationEnabled _vehicle ) then
 		{
 			_vehicle enableSimulation true;
 		};
@@ -78,7 +79,7 @@ A3W_vehicleManager =
 
 			if (_isThing) then
 			{
-				_vehicle addEventHandler ["EpeContactStart", A3W_vehicleManagerEventCode];
+				//_vehicle addEventHandler ["EpeContactStart", A3W_vehicleManagerEventCode];
 			};
 
 			_vehicle addEventHandler ["Explosion", A3W_vehicleManagerEventCode];

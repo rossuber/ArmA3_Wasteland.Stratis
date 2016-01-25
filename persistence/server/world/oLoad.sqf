@@ -62,6 +62,10 @@ _exclObjectIDs = [];
 		_valid = true;
 
 		{ if (typeName _x == "STRING") then { _pos set [_forEachIndex, parseNumber _x] } } forEach _pos;
+		
+		_dis_chk = _pos distance [ 7000, 7000, 0 ];
+		_close_sea = _dis_chk < 900;
+		if ( _close_sea ) exitWith {};
 
 		_obj = createVehicle [_class, _pos, [], 0, "None"];
 		_obj allowDamage false;
@@ -181,6 +185,7 @@ _exclObjectIDs = [];
 			if (!isNil "_turretMags" && _staticWeaponSavingOn && {_class call _isStaticWeapon}) then
 			{
 				_obj setVehicleAmmo 0;
+				{ _obj removeMagazineTurret [_x select 0, _x select 1] } forEach magazinesAllTurrets _obj;
 				{ _obj addMagazine _x } forEach _turretMags;
 			};
 

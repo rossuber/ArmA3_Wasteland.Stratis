@@ -134,6 +134,6 @@ _boxList =
 
 		_counter = _counter + 1;
 	};
-} forEach (call cityList);
+} forEach landCityList;
 
 diag_log format ["WASTELAND SERVER - %1 Ammo Caches Spawned",_counter];

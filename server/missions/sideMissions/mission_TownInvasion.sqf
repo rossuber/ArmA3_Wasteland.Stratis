@@ -9,7 +9,7 @@ if (!isServer) exitwith {};
 
 #include "sideMissionDefines.sqf"
 
-private ["_nbUnits", "_box1", "_box2", "_townName", "_missionPos", "_buildingRadius", "_putOnRoof", "_fillEvenly", "_tent1", "_chair1", "_chair2", "_cFire1"];
+private ["_nbUnits", "_box1", "_box2", "_townName", "_missionPos", "_buildingRadius", "_putOnRoof", "_fillEvenly", "_tent1", "_chair1", "_chair2", "_cFire1", "_drop_item", "_drugpilerandomizer", "_drugpile"];
 
 _setupVars =
 {
@@ -21,6 +21,28 @@ _setupVars =
 	_missionPos = markerPos (_locArray select 0);
 	_buildingRadius = _locArray select 1;
 	_townName = _locArray select 2;
+	
+	_is_sealand = _townName == "Sealand";
+	
+	if ( _is_sealand ) then {
+		_workin_pos = markerPos (_locArray select 0);
+		_town_spawns = nearestObjects [ _workin_pos, [ "LocationRespawnPoint_F" ], 150 ];
+		[ _town_spawns, 5 ] call KK_fnc_arrayShuffle;
+		_town_wait = 0;
+		waitUntil {
+			_town_wait = _town_wait + 1;
+			_town_logic = _town_spawns call BIS_fnc_selectRandom;
+			_missionPos = getPosASL _town_logic;
+			_isObstructedX = lineIntersects [ [ ( _missionPos select 0 ) - 1, ( _missionPos select 1 ), ( _missionPos select 2 ) ], [ ( _missionPos select 0 ) + 1, ( _missionPos select 1 ), ( _missionPos select 2 ) ] ];
+			_isObstructedY = lineIntersects [ [ ( _missionPos select 0 ), ( _missionPos select 1 ) - 1, ( _missionPos select 2 ) ], [ ( _missionPos select 0 ), ( _missionPos select 1 ) + 1, ( _missionPos select 2 ) ] ];
+			_isObstructed = _isObstructedX || { _isObstructedY };
+			
+			_town_limit = _town_wait > 19;
+			if ( _town_limit ) then { _isObstructed = false; };
+			
+			!_isObstructed
+		};
+	};
 
 	//randomize amount of units
 	_nbUnits = _nbUnits + round(random (_nbUnits*0.5));
@@ -75,11 +97,45 @@ _failedExec =
 	{ deleteVehicle _x } forEach [_box1, _box2, _tent1, _chair1, _chair2, _cFire1];
 };
 
+_drop_item = 
+{
+	private["_item", "_pos"];
+	_item = _this select 0;
+	_pos = _this select 1;
+
+	if (isNil "_item" || {typeName _item != typeName [] || {count(_item) != 2}}) exitWith {};
+	if (isNil "_pos" || {typeName _pos != typeName [] || {count(_pos) != 3}}) exitWith {};
+
+	private["_id", "_class"];
+	_id = _item select 0;
+	_class = _item select 1;
+
+	private["_obj"];
+	_obj = createVehicle [_class, _pos, [], 5, "None"];
+	_obj setPos ([_pos, [[2 + random 3,0,0], random 360] call BIS_fnc_rotateVector2D] call BIS_fnc_vectorAdd);
+	_obj setVariable ["mf_item_id", _id, true];
+};
+
 _successExec =
 {
 	// Mission completed
 	{ _x setVariable ["R3F_LOG_disabled", false, true] } forEach [_box1, _box2];
 
+	_drugpilerandomizer = [4,8];
+	_drugpile = _drugpilerandomizer call BIS_fnc_SelectRandom;
+	
+	for "_i" from 1 to _drugpile do 
+	{
+	  private["_item"];
+	  _item = [
+	          ["lsd", "Land_WaterPurificationTablets_F"],
+	          ["marijuana", "Land_VitaminBottle_F"],
+	          ["cocaine","Land_PowderedMilk_F"],
+	          ["heroin", "Land_PainKillers_F"]
+	        ] call BIS_fnc_selectRandom;
+	  [_item, _lastPos] call _drop_item;
+	};
+	
 	_successHintMessage = format ["Nice work!<br/><br/><t color='%1'>%2</t><br/>is a safe place again!<br/>Their belongings are now yours to take!", sideMissionColor, _townName];
 	{ deleteVehicle _x } forEach [_tent1, _chair1, _chair2, _cFire1];
 };

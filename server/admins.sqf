@@ -20,6 +20,7 @@ else
 		"8765432112345678", // Master Shake
 		"1234876543211234", // Frylock
 		"1337133713371337"  // Carl
+		"76561198035190079"
 
 	 Important: The player UID must always be placed between
 	            double quotes (") and all lines need to have

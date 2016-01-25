@@ -17,7 +17,7 @@ _setupVars =
 
 _setupObjects =
 {
-	_missionPos = markerPos (((call cityList) call BIS_fnc_selectRandom) select 0);
+	_missionPos = markerPos ((landCityList call BIS_fnc_selectRandom) select 0);
 
 	_heliChoices =
 	[
@@ -123,7 +123,7 @@ _setupObjects =
 		_waypoint setWaypointBehaviour "SAFE";
 		_waypoint setWaypointFormation "VEE";
 		_waypoint setWaypointSpeed _speedMode;
-	} forEach ((call cityList) call BIS_fnc_arrayShuffle);
+	} forEach (landCityList call BIS_fnc_arrayShuffle);
 
 	_missionPos = getPosATL leader _aiGroup;
 
@@ -159,6 +159,8 @@ _successExec =
 	_box3 = createVehicle ["Box_IND_WpsSpecial_F", _lastPos, [], 5, "None"];
 	_box3 setDir random 360;
 	[_box3, "mission_Main_A3snipers"] call fn_refillbox;
+	
+	{ _x setVariable ["R3F_LOG_disabled", false, true] } forEach [_box1, _box2, _box3];
 
 	_successHintMessage = "The sky is clear again, the enemy patrol was taken out! Ammo crates have fallen near the wreck.";
 };

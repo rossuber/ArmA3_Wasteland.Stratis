@@ -15,9 +15,11 @@ _counter = 0;
 {
 	if (["boatSpawn_", _x] call fn_startsWith) then
 	{
-		if (random 1 < 0.75) then // 75% chance spawning
+		if (random 1 < 0.50) then // 50% chance spawning
 		{
-			[markerPos _x] call boatCreation;
+			_old_pos = getMarkerPos _x;
+			_boatPos = [ _old_pos , 0, 25, 2, 0, 0, 0 ] call findSafePos;
+			[_boatPos] call boatCreation;
 			_counter = _counter + 1;
 		};
 	};

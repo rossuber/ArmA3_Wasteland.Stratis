@@ -7,6 +7,8 @@
 //	@file Created: 12/10/2013 12:36
 //	@file Args:
 
+waitUntil { sleep 1; sealand_complete };
+
 #define STORE_ACTION_CONDITION "(player distance _target < 3)"
 #define SELL_CRATE_CONDITION "(!isNil 'R3F_LOG_joueur_deplace_objet' && {R3F_LOG_joueur_deplace_objet isKindOf 'ReammoBox_F'})"
 #define SELL_CONTENTS_CONDITION "(!isNil 'R3F_LOG_joueur_deplace_objet' && {{R3F_LOG_joueur_deplace_objet isKindOf _x} count ['ReammoBox_F','AllVehicles'] > 0})"
@@ -116,11 +118,11 @@ if (isServer) then
 	{
 		if (_x select 0 == _npcName) exitWith
 		{
-			private "_frontOffset";
+			//private "_frontOffset";
 
 			//collect our arguments
 			_npcPos = _x select 1;
-			_deskDirMod = _x select 2;
+/* 			_deskDirMod = _x select 2;
 
 			if (typeName _deskDirMod == "ARRAY" && {count _deskDirMod > 0}) then
 			{
@@ -130,7 +132,7 @@ if (isServer) then
 				};
 
 				_deskDirMod = _deskDirMod select 0;
-			};
+			}; */
 
 			_storeOwnerAppearance = [];
 
@@ -174,7 +176,7 @@ if (isServer) then
 				};
 			} forEach _storeOwnerAppearance;
 
-			_pDir = getDir _npc;
+/* 			_pDir = getDir _npc;
 
 			private "_bPos";
 			switch (toUpper typeName _npcPos) do
@@ -203,14 +205,14 @@ if (isServer) then
 			else
 			{
 				_npc setPosATL _bPos;
-			};
+			}; */
 
-			_desk = [_npc, _bPos, _pDir, _deskDirMod] call compile preprocessFileLineNumbers "server\functions\createStoreFurniture.sqf";
-			_npc setVariable ["storeNPC_cashDesk", netId _desk, true];
+			//_desk = [_npc, _bPos, _pDir, _deskDirMod] call compile preprocessFileLineNumbers "server\functions\createStoreFurniture.sqf";
+			//_npc setVariable ["storeNPC_cashDesk", netId _desk, true];
 
 			sleep 1;
 
-			_bbNPC = boundingBoxReal _npc;
+/* 			_bbNPC = boundingBoxReal _npc;
 			_bbDesk = boundingBoxReal _desk;
 			_bcNPC = boundingCenter _npc;
 			_bcDesk = boundingCenter _desk;
@@ -237,25 +239,51 @@ if (isServer) then
 			};
 
 			detach _npc;
-			sleep 1;
+			sleep 1; */
 
 			_npc enableSimulation false;
-			_desk enableSimulationGlobal false;
+			//_desk enableSimulationGlobal false;
 		};
 	} forEach (call storeOwnerConfig);
 };
 
-if (isServer) then
-{
+if (isServer) then {
 	_npc setVariable ["storeNPC_setupComplete", true, true];
+	//_deskOffset = (getPosASL _npc) vectorAdd ([[-0.05,-0.2,0], -(getDir _npc)] call BIS_fnc_rotateVector2D);
+	_deskOffset = getPosASL _npc;
+	_sellBox = "Box_IND_Ammo_F" createVehicleLocal ASLtoATL _deskOffset;
+	_sellBox allowDamage false;
+	_sellBox setPosASL _deskOffset;
+	_sellBox setVariable ["R3F_LOG_disabled", true];
+	_sellBox setVariable ["A3W_storeSellBox", true];
+	_sellBox setObjectTexture [0, ""]; // remove side marking
+
+	clearBackpackCargo _sellBox;
+	clearMagazineCargo _sellBox;
+	clearWeaponCargo _sellBox;
+	clearItemCargo _sellBox;
+
+	// must be done twice for the position to set properly
+	for "_i" from 1 to 2 do {
+		_sellBox setVelocity [0,0,0];
+		_sellBox setVectorDirAndUp [[vectorDir _npc, -90] call BIS_fnc_rotateVector2D, [0,0,1]];
+		_sellBox setPosASL _deskOffset;
+		_boxPos = getPos _sellBox;
+
+		if (_boxPos select 2 > 0) then {
+			_boxPosASL = getPosASL _sellBox;
+			_boxPosASL set [2, (_boxPosASL select 2) - (_boxPos select 2)];
+			_sellBox setPosASL _boxPosASL;
+		};
+	};
+
+	_sellBox addAction ["<img image='client\icons\money.paa'/> Sell bin contents", "client\systems\selling\sellCrateItems.sqf", [true], 1, false, false, "", STORE_ACTION_CONDITION + " && " + SELL_BIN_CONDITION];
 };
 
-// Add sell box in front of counter
-if (hasInterface) then
-{
+if (hasInterface) then {
 	waitUntil {sleep 1; _npc getVariable ["storeNPC_setupComplete", false]};
 
-	_desk = objectFromNetId (_npc getVariable ["storeNPC_cashDesk", ""]);
+//	_desk = objectFromNetId (_npc getVariable ["storeNPC_cashDesk", ""]);
 	_face = _npc getVariable ["storeNPC_face", ""];
 
 	if (_face != "") then
@@ -263,7 +291,7 @@ if (hasInterface) then
 		_npc setFace _face;
 	};
 
-	if (!isNull _desk) then
+/* 	if (!isNull _desk) then
 	{
 		_desk spawn
 		{
@@ -329,5 +357,5 @@ if (hasInterface) then
 				};
 			};
 		};
-	};
+	}; */
 };

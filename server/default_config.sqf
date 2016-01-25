@@ -23,6 +23,8 @@ A3W_startingMoney = 100;           // Amount of money that players start with
 A3W_survivalSystem = 1;            // Food and water are required to stay alive (0 = no, 1 = yes) - 0 removes food and water items from the mission
 A3W_unlimitedStamina = 1;          // Allow unlimited sprinting, jumping, etc. (0 = no, 1 = yes) - this also removes energy drinks from the mission
 A3W_bleedingTime = 60;             // Time in seconds for which to allow revive after a critical injury (minimum 10 seconds)
+A3W_maxSpawnBeacons = 2;
+A3W_donatorEnabled = 0;			// Enable/Disable Donator Features
 
 // Spawn settings
 A3W_townSpawnCooldown = 5*60;      // Number of seconds to wait between each spawn on a specific town (0 = disabled)
@@ -64,9 +66,9 @@ A3W_staticWeaponSaving = 1;        // Save locked static weapons and their magaz
 A3W_warchestSaving = 1;            // Save warchest objects deployed by players between server restarts (0 = no, 1 = yes)
 A3W_warchestMoneySaving = 1;       // Save warchest team money between server restarts (0 = no, 1 = yes)
 A3W_spawnBeaconSaving = 1;         // Save spawn beacons between server restarts (0 = no, 1 = yes)
-A3W_objectLifetime = 5*24;         // Maximum lifetime in hours for saved objects (baseparts, crates, etc. except vehicles) across server restarts (0 = no time limit)
+A3W_objectLifetime = 0;         // Maximum lifetime in hours for saved objects (baseparts, crates, etc. except vehicles) across server restarts (0 = no time limit)
 A3W_vehicleLifetime = 0;           // Maximum lifetime in hours for saved vehicles across server restarts, regardless of usage (0 = no time limit)
-A3W_vehicleMaxUnusedTime = 2*24;   // Maximum parking time in hours after which unused saved vehicles will be marked for deletion (0 = no time limit)
+A3W_vehicleMaxUnusedTime = 6;   // Maximum parking time in hours after which unused saved vehicles will be marked for deletion (0 = no time limit)
 A3W_serverSavingInterval = 1*60;   // Interval in seconds between automatic vehicle & object saves; should be kept at 1 min for profileNamespace and iniDB, while for extDB it can be relaxed to 3-5 mins
 
 // iniDB settings
@@ -93,7 +95,7 @@ A3W_hcObjCaching = 1;              // Enable headless client object caching (0 =
 A3W_hcObjCachingID = 1;            // ID of the headless client in charge of object caching (1 or 2)
 A3W_hcObjSaving = 0;               // Enable headless client vehicle & object saving (0 = no, 1 = yes)
 A3W_hcObjSavingID = 2;             // ID of the headless client in charge of object saving (1 or 2)
-
+A3W_teamSwitchLock = 180;
 // HEADLESS CLIENT NOTES:
 // The IDs of HCs are assigned according to the order they connect to the server. The first HC to connect will have ID 1, and the second one will have ID 2.
 // It is possible to set both caching and saving IDs to 1, which means both features will run on a single HC, therefore eliminating the need for a second one.
@@ -106,34 +108,86 @@ A3W_serverSpawning = 1;            // Vehicle, object, and loot spawning (0 = no
 A3W_vehicleSpawning = 1;           // If serverSpawning = 1, spawn vehicles in towns (0 = no, 1 = yes)
 A3W_vehicleQuantity = 200;         // Approximate number of land vehicles to be spawned in towns
 A3W_boatSpawning = 1;              // If serverSpawning = 1, spawn boats at marked areas near coasts (0 = no, 1 = yes)
-A3W_heliSpawning = 1;              // If serverSpawning = 1, spawn helicopters in some towns and airfields (0 = no, 1 = yes)
-A3W_planeSpawning = 1;             // If serverSpawning = 1, spawn planes at some airfields (0 = no, 1 = yes)
-A3W_boxSpawning = 0;               // If serverSpawning = 1, spawn weapon crates in 50% towns (0 = no, 1 = yes)
+A3W_heliSpawning = 0;              // If serverSpawning = 1, spawn helicopters in some towns and airfields (0 = no, 1 = yes)
+A3W_planeSpawning = 0;             // If serverSpawning = 1, spawn planes at some airfields (0 = no, 1 = yes)
+A3W_boxSpawning = 1;               // If serverSpawning = 1, spawn weapon crates in 50% towns (0 = no, 1 = yes)
 A3W_baseBuilding = 1;              // If serverSpawning = 1, spawn base parts in towns (0 = no, 1 = yes)
 A3W_essentialsSpawning = 1;        // If serverSpawning = 1, spawn essential items (food sacks, water barrels, minor supply crates) in towns (0 = no, 1 = yes)
-
+A3W_teamSwitchLock = 180;
 // Loot settings
-A3W_buildingLootWeapons = 0;       // Spawn weapon loot in all buildings (0 = no, 1 = yes)
+A3W_buildingLootWeapons = 1;       // Spawn weapon loot in all buildings (0 = no, 1 = yes)
 A3W_buildingLootSupplies = 1;      // Spawn supply loot (backpacks & player items) in all buildings (0 = no, 1 = yes)
 A3W_buildingLootChances = 25;      // Chance percentage that loot will spawn at each spot in a building (0 to 100)
-A3W_vehicleLoot = 2;               // Level of loot added to vehicles (0 = none, 1 = weapon OR items, 2 = weapon AND items, 3 = two weapons AND items) - 2 or 3 recommended if buildingLoot = 0
+A3W_vehicleLoot = 3;               // Level of loot added to vehicles (0 = none, 1 = weapon OR items, 2 = weapon AND items, 3 = two weapons AND items) - 2 or 3 recommended if buildingLoot = 0
 
 // Territory settings
-A3W_territoryCaptureTime = 3*60;   // Time in seconds needed to capture a territory
+A3W_territoryCaptureTime = 2*60;   // Time in seconds needed to capture a territory
 A3W_territoryPayroll = 1;          // Periodically reward sides and indie groups based on how many territories they own (0 = no, 1 = yes)
 A3W_payrollInterval = 30*60;       // Delay in seconds between each payroll
 A3W_payrollAmount = 100;           // Amount of money rewarded per territory on each payroll
 
 // Mission settings
 A3W_serverMissions = 1;            // Enable server missions (0 = no, 1 = yes)
-A3W_missionsDifficulty = 0;        // Missions difficulty (0 = normal, 1 = hard)
+A3W_missionsDifficulty = 1;        // Missions difficulty (0 = normal, 1 = hard)
 A3W_missionFarAiDrawLines = 1;     // Draw small red lines on the map from mission markers to individual units & vehicles which are further away than 75m from the objective (0 = no, 1 = yes)
 A3W_missionsQuantity = 6;          // Number of missions running at the same time (0 to 6)
-A3W_heliPatrolMissions = 1;        // Enable missions involving flying helicopters piloted by AI (0 = no, 1 = yes)
+A3W_heliPatrolMissions = 0;        // Enable missions involving flying helicopters piloted by AI (0 = no, 1 = yes)
 A3W_underWaterMissions = 1;        // Enable underwater missions which require diving gear (0 = no, 1 = yes)
-A3W_mainMissionDelay = 10*60;      // Time in seconds between Main Missions
-A3W_mainMissionTimeout = 60*60;    // Time in seconds that a Main Mission will run for, unless completed
-A3W_sideMissionDelay = 5*60;       // Time in seconds between Side Missions
-A3W_sideMissionTimeout = 45*60;    // Time in seconds that a Side Mission will run for, unless completed
-A3W_moneyMissionDelay = 15*60;     // Time in seconds between Money Missions
-A3W_moneyMissionTimeout = 60*60;   // Time in seconds that a Money Mission will run for, unless completed
+A3W_mainMissionDelay = 10*60;      // Time in seconds between Main Missions 10*60;
+A3W_mainMissionTimeout = 60*60;    // Time in seconds that a Main Mission will run for, unless completed 60*60; 
+A3W_sideMissionDelay = 5*60;       // Time in seconds between Side Missions 5*60;
+A3W_sideMissionTimeout = 45*60;    // Time in seconds that a Side Mission will run for, unless completed 45*60;
+A3W_seaMissionDelay = 5*60;       // Time in seconds between sea Missions 5*60;
+A3W_seaMissionTimeout = 45*60;    // Time in seconds that a sea Mission will run for, unless completed 45*60;
+A3W_moneyMissionDelay = 15*60;     // Time in seconds between Money Missions 15*60;
+A3W_moneyMissionTimeout = 60*60;   // Time in seconds that a Money Mission will run for, unless completed 60*60;
+
+// Mission weightings
+MainMissions =
+[
+	// Mission filename, weight
+	//["mission_ArmedDiversquad", 1],
+	["mission_Coastal_Convoy", 0.5],
+	["mission_Convoy", 1],
+	["mission_Hackers", 0.5],
+/*	["mission_HostileHeliFormation", 0.5],
+	["mission_HostileJetFormation", 0.5],
+ 	["mission_APC", 1],
+	["mission_MBT", 1],*/
+	["mission_LightArmVeh", 1], 
+	["mission_ArmedHeli", 1],
+	["mission_AbandonedJet", 0.5],
+	["mission_CivHeli", 1]
+];
+
+SideMissions =
+[
+ 	["mission_HostileHelicopter", 0.5],
+	["mission_MiniConvoy", 1],
+	//["mission_SunkenSupplies", 1], 
+	["mission_TownInvasion", 1],
+	["mission_AirWreck", 1],
+	["mission_WepCache", 1],
+	["mission_Outpost", 1],
+	["mission_Truck", 1],
+	["mission_Roadblock", 1],
+	["mission_HostileJet", 0.5],
+	["mission_Sniper", 1],
+	["mission_Smugglers", 1],
+	["mission_drugsRunners", 1],
+	["mission_GeoCache", 1]
+];
+
+SeaMissions =
+[
+ 	["mission_HostileHelicopter", 0.25],
+	["mission_sealand", 1]
+];
+
+MoneyMissions =
+[
+	["mission_MoneyShipment", 1],
+	["mission_SunkenTreasure", 1],
+	["mission_militaryPatrol", 0.5],
+	["mission_stratisPatrol", 1]
+];

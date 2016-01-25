@@ -1,4 +1,4 @@
-// ******************************************************************************************
+﻿// ******************************************************************************************
 // * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
 // ******************************************************************************************
 //	@file Version: 1.2
@@ -43,7 +43,7 @@ if (!isDedicated) then
 	{
 		if (hasInterface) then // Normal player
 		{
-			9999 cutText ["Welcome to A3Wasteland, please wait for your client to initialize", "BLACK", 0.01];
+			9999 cutText ["Welcome to A3Waste/Sealand, please wait for everything to initialize", "BLACK", 0.01];
 
 			waitUntil {!isNull player};
 			player setVariable ["playerSpawning", true, true];
@@ -70,11 +70,16 @@ if (!isDedicated) then
 	};
 };
 
+sea_allUnits = [];
+A3W_seaMissionDelay = 5*60;       // Time in seconds between sea Missions 5*60;
+A3W_seaMissionTimeout = 20*60;    // Time in seconds that a sea Mission will run for, unless completed 45*60;
+
 if (isServer) then
 {
 	diag_log format ["############################# %1 #############################", missionName];
 	diag_log "WASTELAND SERVER - Initializing Server";
 	[] execVM "server\init.sqf";
+	[] spawn opec_fnc_start;
 };
 
 if (hasInterface || isServer) then
@@ -85,5 +90,9 @@ if (hasInterface || isServer) then
 	[] execVM "addons\JumpMF\init.sqf";
 	[] execVM "addons\outlw_magRepack\MagRepack_init.sqf";
 	[] execVM "addons\lsd_nvg\init.sqf";
+	[] execVM "addons\laptop\init.sqf";                   // Addon for hack laptop mission
+	[] execVM "addons\HvT\HvT.sqf";                       // High Value Target
+	[] execVM "addons\HvT\HvD.sqf";                       // High Value Drugrunner
+	//[] execVM "addons\APOC_Airdrop_Assistance\init.sqf";
 	if (isNil "drn_DynamicWeather_MainThread") then { drn_DynamicWeather_MainThread = [] execVM "addons\scripts\DynamicWeatherEffects.sqf" };
 };

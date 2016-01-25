@@ -9,7 +9,7 @@
 
 private ["_marker", "_preload", "_pos", "_rad", "_townName", "_playerPos"];
 _marker = _this select 0;
-_preload = [_this, 1, false, [false]] call BIS_fnc_param;
+_preload = param [1, false, [false]];
 
 {
 	if (_x select 0 == _marker) exitWith
@@ -19,11 +19,24 @@ _preload = [_this, 1, false, [false]] call BIS_fnc_param;
 		_townName = _x select 2;
 
 		_playerPos = [_pos,5,_rad,1,0,0,0] call findSafePos;
+
+		_is_sealand_spawn = _townName == "Sealand";
+		if ( _is_sealand_spawn ) then { 
+			_spawns_town = nearestObjects [ _pos, [ "LocationRespawnPoint_F" ], 50 ];
+			[ _spawns_town, 5 ] call KK_fnc_arrayShuffle;
+			_pick_town_pos = _spawns_town call BIS_fnc_selectRandom;
+			_playerPos = getPosASL _pick_town_pos;
+		};
+		
 		if (_preload) then { waitUntil {sleep 0.1; preloadCamera _playerPos} };
 
 		waitUntil {!isNil "bis_fnc_init" && {bis_fnc_init}};
 
-		player setPos _playerPos;
+		if ( _is_sealand_spawn ) then {
+			player setPosASL _playerPos;
+		} else {
+			player setPos _playerPos;
+		};
 	};
 } forEach (call cityList);
 

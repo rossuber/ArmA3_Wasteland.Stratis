@@ -164,7 +164,7 @@ class outlw_MR_RscListBox
 	h = 0.4;
 	rowHeight = 0;
 	colorText[] = {1,1,1,1};
-	colorDisabled[] = {1,1,1,0.25};
+	colorDisabled[] = {1,1,1,0.7};
 	colorScrollbar[] = {1,0,0,0};
 	colorSelect[] = {0,0,0,1};
 	colorSelect2[] = {0,0,0,1};

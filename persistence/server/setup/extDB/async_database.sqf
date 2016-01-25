@@ -2,11 +2,9 @@
 	File: async_database.sqf
 	Function: extDB_Database_async
 	Author: Bryan "Tonic" Boardwine
-
 	Description:
 	Commits an asynchronous call to extDB
 	Gets result via extDB  4:x + uses 5:x if message is Multi-Part
-
 	Parameters:
 		0: STRING (Query to be ran).
 		1: INTEGER (1 = ASYNC + not return for update/insert, 2 = ASYNC + return for query's).
@@ -17,9 +15,9 @@ private["_queryStmt","_queryResult","_key","_mode","_return","_loop"];
 
 _tickTime = diag_tickTime;
 
-_queryStmt = [_this,0,"",[""]] call BIS_fnc_param;
-_mode = [_this,1,1,[0]] call BIS_fnc_param;
-_multiarr = [_this,2,false,[false]] call BIS_fnc_param;
+_queryStmt = param [0,"",[""]];
+_mode = param [1,1,[0]];
+_multiarr = param [2,false,[false]];
 
 _key = "extDB2" callExtension format["%1:%2:%3",_mode, (call A3W_extDB_databaseID), _queryStmt];
 

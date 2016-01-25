@@ -49,7 +49,7 @@ class ScoreGUI : IGUIBack
 		class PListTopBG : IGUIBack
 		{
 			idc = -1;
-			colorBackground[] = {0.25, 0.51, 0.96, 0.8};
+			colorBackground[] = {A3W_UICOLOR_R, A3W_UICOLOR_G, A3W_UICOLOR_B, 0.8};
 
 			#define PListTopBG_H (0.05 * Y_SCALE)
 
@@ -113,7 +113,7 @@ class ScoreGUI : IGUIBack
 		class PListHead_PKills : w_RscStructuredText
 		{
 			idc = -1;
-			text = "<t underline='true' shadow='0'>P. kills</t>"; // Alt + 255
+			text = "<t underline='true' shadow='0'>P. kills</t>"; // Alt + 255
 			size = PListHead_textSize;
 
 			x = PListHead_PKills_X;
@@ -128,7 +128,7 @@ class ScoreGUI : IGUIBack
 		class PListHead_AIKills : w_RscStructuredText
 		{
 			idc = -1;
-			text = "<t underline='true' shadow='0'>AI kills</t>"; // Alt + 255
+			text = "<t underline='true' shadow='0'>AI kills</t>"; // Alt + 255
 			size = PListHead_textSize;
 
 			x = PListHead_AIKills_X;
@@ -394,7 +394,7 @@ class ScoreGUI : IGUIBack
 		class TListTopBG : IGUIBack
 		{
 			idc = -1;
-			colorBackground[] = {0.25, 0.51, 0.96, 0.8};
+			colorBackground[] = {A3W_UICOLOR_R, A3W_UICOLOR_G, A3W_UICOLOR_B, 0.8};
 
 			#define TListTopBG_H (0.05 * Y_SCALE)
 
@@ -458,7 +458,7 @@ class ScoreGUI : IGUIBack
 		class TListHead_PKills : w_RscStructuredText
 		{
 			idc = -1;
-			text = "<t underline='true' shadow='0'>P. kills</t>"; // Alt + 255
+			text = "<t underline='true' shadow='0'>P. kills</t>"; // Alt + 255
 			size = TListHead_textSize;
 
 			x = TListHead_PKills_X;

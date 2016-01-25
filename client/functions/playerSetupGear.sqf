@@ -4,8 +4,12 @@
 //	@file Name: playerSetupGear.sqf
 //	@file Author: [GoT] JoSchaap, AgentRev
 
-private ["_player", "_uniform", "_vest", "_headgear", "_goggles"];
+private ["_player", "_uniform", "_vest", "_headgear", "_goggles", "_donatorLevel"];
 _player = _this;
+
+_donatorEnabled = ["A3W_donatorEnabled"] call isConfigOn;
+_donatorLevel = player getVariable ["donatorLevel", 0];
+
 
 // Clothing is now defined in "client\functions\getDefaultClothing.sqf"
 
@@ -33,15 +37,104 @@ if (hmd _player != "") then { _player unlinkItem hmd _player };
 // Add NVG
 _player linkItem "NVGoggles";
 
-_player addBackpack "B_AssaultPack_rgr";
+switch (_donatorLevel) do
+{
+	case 1:
+	{
+		_player addBackpack "B_TacticalPack_blk";
+		_player addHeadgear "H_HelmetB_light_black";
+		_player addVest "V_HarnessO_gry";
+		_player forceAddUniform "U_BG_Guerilla2_1";
+		_player addGoggles "G_Bandanna_shades";
+		
+		_player addMagazine "9Rnd_45ACP_Mag";
+		_player addWeapon "hgun_ACPC2_F";
+		_player addMagazine "9Rnd_45ACP_Mag";
+		_player addMagazine "9Rnd_45ACP_Mag";
+		
+		_player addMagazine "SmokeShell";
+		_player addMagazine "SmokeShell";
+		
+		_player addItem "FirstAidKit";
+		_player addWeapon "Binocular";
+		_player linkItem "ItemGPS";
+		_player selectWeapon "hgun_ACPC2_F";
+	};
+	case 2:
+	{
+		_player addBackpack "B_TacticalPack_blk";
+		_player forceAddUniform "U_BG_leader";
+		_player addVest "V_PlateCarrier1_blk";
+		_player addHeadgear "H_HelmetB";
+		_player addGoggles "G_Bandanna_beast";
+		
+		_player addMagazine "SmokeShell";
+		_player addMagazine "SmokeShell";
+		
+		_player addMagazine "HandGrenade";
+		_player addMagazine "HandGrenade";
+		
+		_player addMagazine "11Rnd_45ACP_Mag";
+		_player addWeapon "hgun_Pistol_heavy_01_F";
+		_player addHandgunItem "optic_MRD";
+		_player addMagazine "11Rnd_45ACP_Mag";
+		_player addMagazine "11Rnd_45ACP_Mag";
+		
+		_player addItem "FirstAidKit";
+		_player addWeapon "Rangefinder";
+		_player linkItem "ItemGPS";
+		_player selectWeapon "hgun_Pistol_heavy_01_F";
+	};
+	case 3:
+	{
+		_player addBackpack "B_Kitbag_rgr";
+		_player addVest "V_PlateCarrier2_blk";
+		_player addHeadgear "H_HelmetB";
+		_player forceAddUniform "U_BG_Guerilla1_1";
+		_player addGoggles "G_Goggles_VR";
+		
+		_player addMagazine "SmokeShell";
+		_player addMagazine "SmokeShell";
+		
+		_player addMagazine "HandGrenade";
+		_player addMagazine "HandGrenade";
+		
+		_player addMagazine "11Rnd_45ACP_Mag";
+		_player addWeapon "hgun_Pistol_heavy_01_F";
+		_player addHandgunItem "optic_MRD";
+		_player addMagazine "11Rnd_45ACP_Mag";
+		_player addMagazine "11Rnd_45ACP_Mag";
+		_player addMagazine "11Rnd_45ACP_Mag";
+		
+		_player addMagazine "30Rnd_556x45_Stanag_Tracer_Yellow";
+		_player addWeapon "arifle_Mk20_GL_plain_F";
+		_player addMagazine "30Rnd_556x45_Stanag_Tracer_Yellow";
+		
+		_player addMagazine "RPG32_F";
+		_player addWeapon "launch_RPG32_F";			
+		_player addMagazine "RPG32_HE_F";
+				
+		_player addItem "FirstAidKit";
+		_player addWeapon "Laserdesignator";
+		_player linkItem "ItemGPS";
+		_player selectWeapon "hgun_Pistol_heavy_01_F";
+	};
+	default 
+	{
+		_player addBackpack "B_AssaultPack_rgr";
+		
 
-_player addMagazine "9Rnd_45ACP_Mag";
-_player addWeapon "hgun_ACPC2_F";
-_player addMagazine "9Rnd_45ACP_Mag";
-_player addMagazine "9Rnd_45ACP_Mag";
-_player addMagazine "9Rnd_45ACP_Mag";
-_player addItem "FirstAidKit";
-_player selectWeapon "hgun_ACPC2_F";
+		_player addMagazine "9Rnd_45ACP_Mag";
+		_player addWeapon "hgun_ACPC2_F";
+		_player addMagazine "9Rnd_45ACP_Mag";
+		_player addMagazine "9Rnd_45ACP_Mag";
+		_player addMagazine "9Rnd_45ACP_Mag";
+		
+		_player addItem "FirstAidKit";
+		_player selectWeapon "hgun_ACPC2_F";
+	};
+	
+};
 
 switch (true) do
 {

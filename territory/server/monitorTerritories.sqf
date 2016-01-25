@@ -73,7 +73,7 @@ currentTerritoryDetails = [];
 	_markerName = _x select 0;
 	//diag_log format ["Adding %1 to lastCapturePointDetails", _markerName];
 	currentTerritoryDetails pushBack [_markerName, [], sideUnknown, 0, 0];
-} forEach (["config_territory_markers", []] call getPublicVar);
+} forEach (config_territory_markers);
 
 A3W_currentTerritoryOwners = [];
 
@@ -456,7 +456,7 @@ _handleCapPointTick = {
 						// Just started capping. Let the current owners know!
 						_currentDominantTeamName = [_currentDominantTeam] call _getTeamName;
 
-						_configEntry = [["config_territory_markers", []] call getPublicVar, { _x select 0 == _currentTerritoryName }] call BIS_fnc_conditionalSelect;
+						_configEntry = [config_territory_markers, { _x select 0 == _currentTerritoryName }] call BIS_fnc_conditionalSelect;
 						_territoryDescriptiveName = (_configEntry select 0) select 1;
 
 						[_territoryDescriptiveName, _currentTerritoryOwner] call _onCaptureStarted;
@@ -479,7 +479,7 @@ _handleCapPointTick = {
 					// If the timer is above what we consider a successful capture and its not already theirs...
 					_currentTerritoryName setMarkerColor _newMarkerColor;
 
-					_configEntry = [["config_territory_markers", []] call getPublicVar, { _x select 0 == _currentTerritoryName }] call BIS_fnc_conditionalSelect;
+					_configEntry = [config_territory_markers, { _x select 0 == _currentTerritoryName }] call BIS_fnc_conditionalSelect;
 					_territoryDescriptiveName = (_configEntry select 0) select 1;
 					_value = (_configEntry select 0) select 2;
 
